@@ -1,9 +1,12 @@
 from bottle import *
+import os
 from subprocess import Popen, PIPE
 
 
 @route("/api", method=['GET', 'POST'])
 def api():
+    print os.path.dirname(os.path.realpath(__file__))
+
     #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : "", "output" : ""};
     #Determination des arguments
