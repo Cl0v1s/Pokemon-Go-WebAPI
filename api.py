@@ -2,23 +2,60 @@ from bottle import *
 from subprocess import Popen, PIPE
 
 
-@route("/api")
+@route("/api", method=['GET', 'POST'])
 def api():
     #Création du dictionnaire de données
-    data = {};
+    data = {"state" : "OK", "message" : "", "output" : ""};
     #Détermination des arguments
+    userparam = request.query.get("user")
+    passwordparam = request.query.get("password")
+    #verification des paramètres
+    #if (userparam == None and passwordparam == None) and (request.forms.get("user") == None or request.forms.get("password") == None):
+    #    data["state"] = "NO"
+    #    data["message"] = "You must specify a username and a password"
+    #    return data
+    #else:
+    #    userparam = request.forms.get("user")
+    #    passwordparam = request.forms.get("password")
+
     #Système d'authentification
-    auth = '-agoogle'
+    if "@gmail.com" in userparam:
+        auth = '-agoogle'
+    else: 
+        auth = '-aptc'
     #Nom utilisateur
-    user = '-u "gmail_account_username@gmail.com"';
+    user = '-u'+userparam+'';
     #Mot de passe 
-    password = '-p "password"'
+    password = '-p'+passwordparam+''
     #Emplacement
     location = '-l "New York, Washington Square"'
     #Lancement du client api
     process = Popen(["python", "engine/main.py", auth, user, password, location], stdout=PIPE)
     #lecture du resultat
     output = process.communicate()[0].split("\r\n");
-    return output[0];
+    #Erreur du serveur/Mauvais mot de passe
+    if (len(output) >= 4 or len(output) >= 5) and (output[4] == "[-] Wrong username/password" or output[5] == "[-] Wrong username/password"):
+        data["state"] = "NO"
+        data["message"] = "Servers down (Auth) or wrong username/password"
+    #RPC Server offline 
+    if(len(output) >=6) and output[6] == "[-] RPC server offline":
+        data["state"] = "NO"
+        data["message"] = "Servers down (RPC)"
+    #Login réussit
+    if(len(output) >= 5) and output[5] == "[+] Login successful":
+        data["message"] = "It's OK"
+        #Remplissage des données
+        data["username"] = output[6].split(": ")[1]
+        data["since"] = output[7].split(": ")[1]
+        data["pokestorage"] = output[8].split(": ")[1]
+        data["itemstorage"] = output[9].split(": ")[1]
+        data["pokecoin"] = output[10].split(": ")[1]
+        data["stardust"] = output[11].split(": ")[1]
+
+
+    #Ajout de la sortie console 
+    data["output"] = "<br>".join(output);
+
+    return data;
 
 run(host='localhost', port=8080)
