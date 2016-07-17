@@ -11,7 +11,8 @@ A terme, le service proposera des 'cartes' à distribuer sous forme d'image et d
 
 Exécuter le script api.py lancera un serveur web écoutant sur localhost:8080.  
 L'accès à l'API se fait via http://localhost:8080/api .  
-Il est nécessaire de transmettre les identifiants de l'utilisateur à l'API. Ceci peut se réaliser via les méthodes GET ou POST (via un formulaire par exemple).
+Il est nécessaire de transmettre les identifiants de l'utilisateur à l'API. Ceci peut se réaliser via les méthodes GET ou POST (via un formulaire par exemple).  
+
 Les paramètres attendus sont: 
 
 * user: Nom d'utilisateur 
