@@ -7,7 +7,30 @@ au jeu en réalité augmentée Pokémon GO.
 
 A terme, le service proposera des 'cartes' à distribuer sous forme d'image et d'iframe web pour exposer son avancée en jeu. 
 
+## Example 
+
+Url : http://localhost:8080/api?user=chaipokoi&password=12345  
+
+<pre>
+{
+   "username":"chaipokoi",
+   "itemstorage":"350",
+   "pokestorage":"250",
+   "since":"2016-07-17 10:50:42",
+   "pokecoin":"0",
+   "state":"OK",
+   "stardust":"0",
+   "output":"[!] Your given location: Washington Square, Greenwich, NY 12834, USA<br>[!] lat/long/alt: 43.0909305 -73.4989367 0.0<br>[!] PTC login for: chaipokoi<br>[+] RPC Session Token: TGT-3975819-HVp6bJxuMpT1D ...<br>[+] Received API endpoint: https://pgorelease.nianticlabs.com/plfe/62/rpc<br>[+] Login successful<br>[+] Username: chaipokoi<br>[+] You are playing Pokemon Go since: 2016-07-17 10:50:42<br>[+] Poke Storage: 250<br>[+] Item Storage: 350<br>[+] POKECOIN: 0<br>[+] STARDUST: 0<br>",
+   "message":"It's OK"
+}
+</pre>
+
 ## Prérequis
 
 - Bottle 
 - Les élements requis par le projet de Tejado.  
+
+## Crédits 
+
+Thanks a lot to [Mila432](https://github.com/Mila432/Pokemon_Go_API) and [Tejado](https://github.com/tejado) for the engine behind the webApi  
+Thanks a lot to [elliottcarlson](https://github.com/elliottcarlson) for the Google Auth PR  
