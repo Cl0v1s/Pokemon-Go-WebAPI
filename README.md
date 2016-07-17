@@ -7,6 +7,16 @@ au jeu en réalité augmentée Pokémon GO.
 
 A terme, le service proposera des 'cartes' à distribuer sous forme d'image et d'iframe web pour exposer son avancée en jeu. 
 
+## Usage 
+
+Exécuter le script api.py lancera un serveur web écoutant sur localhost:8080.  
+L'accès à l'API se fait via http://localhost:8080/api .  
+Il est nécessaire de transmettre les identifiants de l'utilisateur à l'API. Ceci peut se réaliser via les méthodes GET ou POST (via un formulaire par exemple).
+Les paramètres attendus sont: 
+
+* user: Nom d'utilisateur 
+* password: Mot de passe  
+
 ## Example 
 
 Url : http://localhost:8080/api?user=chaipokoi&password=12345  
@@ -27,8 +37,8 @@ Url : http://localhost:8080/api?user=chaipokoi&password=12345
 
 ## Prérequis
 
-- Bottle 
-- Les élements requis par le projet de Tejado.  
+- [Bottlepy](http://bottlepy.org)
+- Les élements requis par le projet de [Tejado](https://github.com/tejado).  
 
 ## Crédits 
 

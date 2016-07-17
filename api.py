@@ -9,14 +9,16 @@ def api():
     #Détermination des arguments
     userparam = request.query.get("user")
     passwordparam = request.query.get("password")
+    if userparam == None or passwordparam == None:
+        userparam = request.forms.get("user")
+        passwordparam = request.forms.get("password")
     #verification des paramètres
-    #if (userparam == None and passwordparam == None) and (request.forms.get("user") == None or request.forms.get("password") == None):
-    #    data["state"] = "NO"
-    #    data["message"] = "You must specify a username and a password"
-    #    return data
-    #else:
-    #    userparam = request.forms.get("user")
-    #    passwordparam = request.forms.get("password")
+    if userparam == None or passwordparam == None:
+        data["state"] = "NO"
+        data["message"] = "You must specify a username and a password"
+        return data
+
+
 
     #Système d'authentification
     if "@gmail.com" in userparam:
