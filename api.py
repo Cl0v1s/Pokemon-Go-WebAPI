@@ -4,15 +4,15 @@ from subprocess import Popen, PIPE
 
 @route("/api", method=['GET', 'POST'])
 def api():
-    #Création du dictionnaire de données
+    #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : "", "output" : ""};
-    #Détermination des arguments
+    #Determination des arguments
     userparam = request.query.get("user")
     passwordparam = request.query.get("password")
     if userparam == None or passwordparam == None:
         userparam = request.forms.get("user")
         passwordparam = request.forms.get("password")
-    #verification des paramètres
+    #verification des parametres
     if userparam == None or passwordparam == None:
         data["state"] = "NO"
         data["message"] = "You must specify a username and a password"
@@ -20,7 +20,7 @@ def api():
 
 
 
-    #Système d'authentification
+    #Systeme d'authentification
     if "@gmail.com" in userparam:
         auth = '-agoogle'
     else: 
@@ -43,10 +43,10 @@ def api():
     if(len(output) >=6) and output[6] == "[-] RPC server offline":
         data["state"] = "NO"
         data["message"] = "Servers down (RPC)"
-    #Login réussit
+    #Login reussit
     if(len(output) >= 5) and output[5] == "[+] Login successful":
         data["message"] = "It's OK"
-        #Remplissage des données
+        #Remplissage des donnees
         data["username"] = output[6].split(": ")[1]
         data["since"] = output[7].split(": ")[1]
         data["pokestorage"] = output[8].split(": ")[1]
@@ -60,4 +60,6 @@ def api():
 
     return data;
 
-run(host='localhost', port=8080)
+application = default_app()
+
+#run(host='localhost', port=8080)
