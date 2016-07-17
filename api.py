@@ -3,6 +3,9 @@ import os
 from subprocess import Popen, PIPE
 
 
+Errors = ["[-] RPC server offline", "[-] Wrong username/password" ]
+Success = "[+] Login successful"
+
 @route("/api", method=['GET', 'POST'])
 def api():
 
@@ -20,8 +23,6 @@ def api():
         data["message"] = "You must specify a username and a password"
         return data
 
-
-
     #Systeme d'authentification
     if "@gmail.com" in userparam:
         auth = '-agoogle'
@@ -37,24 +38,22 @@ def api():
     process = Popen(["python", os.path.dirname(os.path.realpath(__file__)) + "/engine/main.py", auth, user, password, location], stdout=PIPE)
     #lecture du resultat
     output = process.communicate()[0].split("\r\n");
-    #Erreur du serveur/Mauvais mot de passe
-    if (len(output) >= 4 or len(output) >= 5) and (output[4] == "[-] Wrong username/password" or output[5] == "[-] Wrong username/password"):
-        data["state"] = "NO"
-        data["message"] = "Servers down (Auth) or wrong username/password"
-    #RPC Server offline 
-    if(len(output) >=6) and output[6] == "[-] RPC server offline":
-        data["state"] = "NO"
-        data["message"] = "Servers down (RPC)"
-    #Login reussit
-    if(len(output) >= 5) and output[5] == "[+] Login successful":
-        data["message"] = "It's OK"
-        #Remplissage des donnees
-        data["username"] = output[6].split(": ")[1]
-        data["since"] = output[7].split(": ")[1]
-        data["pokestorage"] = output[8].split(": ")[1]
-        data["itemstorage"] = output[9].split(": ")[1]
-        data["pokecoin"] = output[10].split(": ")[1]
-        data["stardust"] = output[11].split(": ")[1]
+    #Gestion des erreurs
+    for entry in output: 
+        if entry in Errors:
+            data["state"] = "NO"
+            data["message"] = entry
+            return data #Arret des operation et signalement de l'erreur 
+        #Login reussit
+        if entry == Success:
+            data["message"] = "It's OK"
+            #Remplissage des donnees
+            data["username"] = output[6].split(": ")[1]
+            data["since"] = output[7].split(": ")[1]
+            data["pokestorage"] = output[8].split(": ")[1]
+            data["itemstorage"] = output[9].split(": ")[1]
+            data["pokecoin"] = output[10].split(": ")[1]
+            data["stardust"] = output[11].split(": ")[1]
 
 
     #Ajout de la sortie console 
@@ -62,6 +61,6 @@ def api():
 
     return data;
 
-application = default_app()
+#application = default_app()
 
-#run(host='localhost', port=8080)
+run(host='localhost', port=8080)
