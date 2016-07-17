@@ -5,7 +5,6 @@ from subprocess import Popen, PIPE
 
 @route("/api", method=['GET', 'POST'])
 def api():
-    print os.path.dirname(os.path.realpath(__file__))
 
     #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : "", "output" : ""};
@@ -35,7 +34,7 @@ def api():
     #Emplacement
     location = '-l "New York, Washington Square"'
     #Lancement du client api
-    process = Popen(["python", "engine/main.py", auth, user, password, location], stdout=PIPE)
+    process = Popen(["python", os.path.dirname(os.path.realpath(__file__)) + "/engine/main.py", auth, user, password, location], stdout=PIPE)
     #lecture du resultat
     output = process.communicate()[0].split("\r\n");
     #Erreur du serveur/Mauvais mot de passe
