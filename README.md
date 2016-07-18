@@ -9,14 +9,33 @@ A terme, le service proposera des 'cartes' à distribuer sous forme d'image et d
 
 ## Usage 
 
-Exécuter le script api.py lancera un serveur web écoutant sur localhost:8080.  
-L'accès à l'API se fait via http://localhost:8080/api .  
-Il est nécessaire de transmettre les identifiants de l'utilisateur à l'API. Ceci peut se réaliser via les méthodes GET ou POST (via un formulaire par exemple).  
+## Hébergement de l'API
 
-Le paramètre attendu par la page se nomme 'params'. Il doit s'agir d'une chaine de caractère (username&password) encodée en base64 cryptée à l'aide de RSA via la clé publique fournie dans le répetoire 'example'.
-Vous trouverez dans ce même répertoire la procédure à suivre pour interroger l'API. 
+### Générer un jeu de clés
 
-(A noter que le jeu de clé fournit dans le repo n'est pas celui utilisé en production)
+Pour être en mesure de communiquer avec l'API, les informations de connexion doivent être cryptées via RSA.  
+Pour l'utiliser, générez tout d'abord un jeu de clés en exécutant le script genkeys.py.
+
+### Lancer l'API
+
+La seconde étape est de lancer l'API. Pour se faire, exécutez le script api.py. Celui-ci va lancer un serveur HTTP.
+
+## Communiquer avec l'API
+
+### Récupérer la clef publique 
+
+Pour communiquer avec l'API, les informations de connexion doivent être cryptées via RSA.  
+Pour se faire, vous devez donc récupérer la clef publique accessible à http://le-server/pubkey
+
+### Se connecter à l'API
+
+Les données de l'API sont accessible à http://le-server/api. 
+
+Celle-ci attends un paramètre (via GET ou POST) nommé 'params'.  
+Il doit présenter les informations de connexion mise en forme tel que 'username&password'.
+Ces informations doivent être envoyé au serveur cryptée avec RSA grâce à la clef publique précedemment récupérée, et encodées en base64 urlsafe. 
+
+Si tout se passe bien, l'API renverra les informations relatives au joueur spécifié. 
 
 ## Démonstration 
 
