@@ -39,7 +39,7 @@ Si tout se passe bien, l'API renverra les informations relatives au joueur spéc
 
 ## Démonstration 
 
-Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?user=username&password=password  (OUTDATED, pas sécurisé)
+Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?params=Bzpalabvoo_x4cU6ZzTjgZsbCGBMrGQykD2IuT86QRLgqlmDS7DnkzUrHMd1wa7AylUZRqxF1RIIERcj4u9Tjg
 
 A noter qu'aucune information relative à vos identifiants n'est enregistrée. 
 
@@ -47,7 +47,7 @@ Un exemple de script client est présent dans "example/main.py".
 
 ## Exemple 
 
-Url : http://localhost:8080/api?user=chaipokoi&password=12345  (OUTDATED, pas sécurisé)
+Url : http://localhost:8080/api?params=Bzpalabvoo_x4cU6ZzTjgZsbCGBMrGQykD2IuT86QRLgqlmDS7DnkzUrHMd1wa7AylUZRqxF1RIIERcj4u9Tjg
 
 <pre>
 {

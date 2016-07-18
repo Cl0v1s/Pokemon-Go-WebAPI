@@ -1,4 +1,5 @@
 import rsa
+import os
 
 (pubkey, privkey) = rsa.newkeys(512)
 
