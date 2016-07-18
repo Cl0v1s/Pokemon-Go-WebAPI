@@ -12,6 +12,7 @@ Separator = "\n"
 if os.name == 'nt':
     Separator = "\r\n"
 
+#Fonction de recherche par regex augmentée
 def search(pattern, string):
     m = re.search(pattern, string)
     if m != None: 
@@ -70,12 +71,12 @@ def api():
             data["itemstorage"] = search("Item Storage: (.*?)<br>", data["output"])
             data["pokecoin"] = search("POKECOIN: (.*?)<br>", data["output"])
             data["stardust"] = search("STARDUST: (.*?)<br>", data["output"])
+            return data;
 
 
 
 
-    return data;
 
-application = default_app()
+#application = default_app()
 
-#run(host='localhost', port=8080)
+run(host='localhost', port=8080)
