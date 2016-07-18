@@ -43,7 +43,9 @@ Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?user=user
 
 A noter qu'aucune information relative à vos identifiants n'est enregistrée. 
 
-## Example 
+Un exemple de script client est présent dans "example/main.py". 
+
+## Exemple 
 
 Url : http://localhost:8080/api?user=chaipokoi&password=12345  (OUTDATED, pas sécurisé)
 
