@@ -16,7 +16,7 @@ if os.name == 'nt':
     Separator = "\r\n"
 
 #Chargement de la cle privee
-with open('id_rsa') as privatefile:
+with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa') as privatefile:
     keydata = privatefile.read()
 Privkey = rsa.PrivateKey.load_pkcs1(keydata)
 
@@ -97,7 +97,7 @@ def api():
 @route("/pubkey")
 def getpubkey():
     #Chargement de la cle privee
-    with open('id_rsa.pub') as privatefile:
+    with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa.pub') as privatefile:
         keydata = privatefile.read()
     return {"pubkey" : keydata}
 

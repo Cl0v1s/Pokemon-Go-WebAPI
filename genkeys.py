@@ -2,9 +2,9 @@ import rsa
 
 (pubkey, privkey) = rsa.newkeys(512)
 
-with open('id_rsa', "w") as privatefile:
+with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa', "w") as privatefile:
     privatefile.write(privkey.save_pkcs1());
-with open('id_rsa.pub', "w") as privatefile:
+with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa.pub', "w") as privatefile:
     privatefile.write(pubkey.save_pkcs1());
-with open('example/id_rsa.pub', "w") as privatefile:
+with open(os.path.dirname(os.path.realpath(__file__))+'/example/id_rsa.pub', "w") as privatefile:
     privatefile.write(pubkey.save_pkcs1());
