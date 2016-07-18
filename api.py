@@ -48,12 +48,12 @@ def api():
         if Success in entry:
             data["message"] = "It's OK"
             #Remplissage des donnees
-            data["username"] = output[6].split(": ")[1]
-            data["since"] = output[7].split(": ")[1]
-            data["pokestorage"] = output[8].split(": ")[1]
-            data["itemstorage"] = output[9].split(": ")[1]
-            data["pokecoin"] = output[10].split(": ")[1]
-            data["stardust"] = output[11].split(": ")[1]
+            #data["username"] = output[6].split(": ")[1]
+            #data["since"] = output[7].split(": ")[1]
+            #data["pokestorage"] = output[8].split(": ")[1]
+            #data["itemstorage"] = output[9].split(": ")[1]
+            #data["pokecoin"] = output[10].split(": ")[1]
+            #data["stardust"] = output[11].split(": ")[1]
 
 
     #Ajout de la sortie console 
