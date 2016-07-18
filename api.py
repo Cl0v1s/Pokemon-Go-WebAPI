@@ -76,6 +76,6 @@ def api():
 
     return data;
 
-#application = default_app()
+application = default_app()
 
-run(host='localhost', port=8080)
+#run(host='localhost', port=8080)
