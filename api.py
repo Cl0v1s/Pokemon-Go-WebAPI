@@ -1,5 +1,6 @@
 from bottle import *
 import os
+import re
 from subprocess import Popen, PIPE
 
 
@@ -11,7 +12,12 @@ Separator = "\n"
 if os.name == 'nt':
     Separator = "\r\n"
 
-
+def search(pattern, string):
+    m = re.search(pattern, string)
+    if m != None: 
+        return m.group(1)
+    else: 
+        return "N/A"
 
 @route("/api", method=['GET', 'POST'])
 def api():
@@ -49,25 +55,27 @@ def api():
     for entry in output: 
         if entry in Errors:
             data["state"] = "NO"
+            data["output"] = "<br>".join(output);
             data["message"] = entry
             return data #Arret des operation et signalement de l'erreur 
         #Login reussit
         if Success in entry:
             data["message"] = "It's OK"
+            #Ajout de la sortie console 
+            data["output"] = "<br>".join(output);
             #Remplissage des donnees
-            data["username"] = output[6].split(": ")[1]
-            data["since"] = output[7].split(": ")[1]
-            data["pokestorage"] = output[8].split(": ")[1]
-            data["itemstorage"] = output[9].split(": ")[1]
-            data["pokecoin"] = output[10].split(": ")[1]
-            data["stardust"] = output[11].split(": ")[1]
+            data["username"] = search("Username: (.*?)<br>", data["output"])
+            data["since"] = search("You are playing Pokemon Go since: (.*?)<br>", data["output"])
+            data["pokestorage"] = search("Poke Storage: (.*?)<br>", data["output"])
+            data["itemstorage"] = search("Item Storage: (.*?)<br>", data["output"])
+            data["pokecoin"] = search("POKECOIN: (.*?)<br>", data["output"])
+            data["stardust"] = search("STARDUST: (.*?)<br>", data["output"])
 
 
-    #Ajout de la sortie console 
-    data["output"] = "<br>".join(output);
+
 
     return data;
 
-application = default_app()
+#application = default_app()
 
-#run(host='localhost', port=8080)
+run(host='localhost', port=8080)
