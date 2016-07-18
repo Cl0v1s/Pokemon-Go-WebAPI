@@ -42,6 +42,10 @@ Url : http://localhost:8080/api?user=chaipokoi&password=12345
 }
 </pre>
 
+## TODO
+
+* Encoder les informations de connexion afin de sécuriser les échanges
+
 ## Prérequis
 
 - [Bottlepy](http://bottlepy.org)
