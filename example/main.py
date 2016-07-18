@@ -8,7 +8,7 @@ with open('id_rsa.pub') as privatefile:
 pubkey = rsa.PublicKey.load_pkcs1(keydata)
 
 #Determination des parametres a encrypter
-params = "chaipokoi&0662240307" #username&password
+params = "username&password" #username&password
 
 #Encryptage des parametres
 params = rsa.encrypt(params, pubkey)
