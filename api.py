@@ -7,7 +7,7 @@ Errors = ["[-] RPC server offline", "[-] Wrong username/password" ]
 Success = "[+] Login successful"
 
 Separator = "\n"
-#Vérification de la plateform d'execution
+#Verification de la plateform d'execution
 if os.name == 'nt':
     Separator = "\r\n"
 
