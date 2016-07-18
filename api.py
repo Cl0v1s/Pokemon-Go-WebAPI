@@ -30,6 +30,7 @@ def search(pattern, string):
     else: 
         return "N/A"
 
+#Retourne les informations de l'utilisateur précisé
 @route("/api", method=['GET', 'POST'])
 def api():
 
@@ -92,7 +93,7 @@ def api():
             data["stardust"] = search("STARDUST: (.*?)<br>", data["output"])
             return data;
 
-
+#Retourne la clef publique 
 @route("/pubkey")
 def getpubkey():
     #Chargement de la cle privee
