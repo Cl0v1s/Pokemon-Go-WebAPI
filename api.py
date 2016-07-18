@@ -93,7 +93,12 @@ def api():
             return data;
 
 
-
+@route("/pubkey")
+def getpubkey():
+    #Chargement de la cle privee
+    with open('id_rsa.pub') as privatefile:
+        keydata = privatefile.read()
+    return {"pubkey" : keydata}
 
 
 #application = default_app()
