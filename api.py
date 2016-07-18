@@ -30,7 +30,7 @@ def search(pattern, string):
     else: 
         return "N/A"
 
-#Retourne les informations de l'utilisateur précisé
+#Retourne les informations de l'utilisateur precise
 @route("/api", method=['GET', 'POST'])
 def api():
 
