@@ -6,6 +6,13 @@ from subprocess import Popen, PIPE
 Errors = ["[-] RPC server offline", "[-] Wrong username/password" ]
 Success = "[+] Login successful"
 
+Separator = "\n"
+#Vérification de la plateform d'execution
+if os.name == 'nt':
+    Separator = "\r\n"
+
+
+
 @route("/api", method=['GET', 'POST'])
 def api():
 
@@ -37,7 +44,7 @@ def api():
     #Lancement du client api
     process = Popen(["python", os.path.dirname(os.path.realpath(__file__)) + "/engine/main.py", auth, user, password, location], stdout=PIPE)
     #lecture du resultat
-    output = process.communicate()[0].split("\r\n");
+    output = process.communicate()[0].split(Separator);
     #Gestion des erreurs
     for entry in output: 
         if entry in Errors:
@@ -48,12 +55,12 @@ def api():
         if Success in entry:
             data["message"] = "It's OK"
             #Remplissage des donnees
-            #data["username"] = output[6].split(": ")[1]
-            #data["since"] = output[7].split(": ")[1]
-            #data["pokestorage"] = output[8].split(": ")[1]
-            #data["itemstorage"] = output[9].split(": ")[1]
-            #data["pokecoin"] = output[10].split(": ")[1]
-            #data["stardust"] = output[11].split(": ")[1]
+            data["username"] = output[6].split(": ")[1]
+            data["since"] = output[7].split(": ")[1]
+            data["pokestorage"] = output[8].split(": ")[1]
+            data["itemstorage"] = output[9].split(": ")[1]
+            data["pokecoin"] = output[10].split(": ")[1]
+            data["stardust"] = output[11].split(": ")[1]
 
 
     #Ajout de la sortie console 
