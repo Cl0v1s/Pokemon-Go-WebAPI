@@ -45,7 +45,7 @@ def api():
             data["message"] = entry
             return data #Arret des operation et signalement de l'erreur 
         #Login reussit
-        if entry == Success:
+        if Success in entry:
             data["message"] = "It's OK"
             #Remplissage des donnees
             data["username"] = output[6].split(": ")[1]
