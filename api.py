@@ -1,18 +1,28 @@
 from bottle import *
 import os
 import re
+import rsa
+import base64
 from subprocess import Popen, PIPE
 
+#=============VARIABLES=============================================
 
+# Definition des variables globales
 Errors = ["[-] RPC server offline", "[-] Wrong username/password" ]
 Success = "[+] Login successful"
-
 Separator = "\n"
-#Verification de la plateform d'execution
+    #Verification de la plateform d'execution
 if os.name == 'nt':
     Separator = "\r\n"
 
-#Fonction de recherche par regex augmentée
+#Chargement de la cle privee
+with open('id_rsa') as privatefile:
+    keydata = privatefile.read()
+Privkey = rsa.PrivateKey.load_pkcs1(keydata)
+
+#=============METHODES=============================================
+
+#Fonction de recherche par regex augmentee
 def search(pattern, string):
     m = re.search(pattern, string)
     if m != None: 
@@ -25,12 +35,21 @@ def api():
 
     #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : "", "output" : ""};
-    #Determination des arguments
-    userparam = request.query.get("user")
-    passwordparam = request.query.get("password")
-    if userparam == None or passwordparam == None:
-        userparam = request.forms.get("user")
-        passwordparam = request.forms.get("password")
+    #Determination des arguments (decryptage)
+    params = request.query.get("params")
+    if params == None: #Si c'est pas en get, on recupere en POST
+        params = request.forms.get("params")
+    params = base64.b64decode(params)
+    params = rsa.decrypt(params, Privkey)
+    params = params.split("&")
+    userparam = params[0]
+    #Suppression du premier arguments
+    params.remove(userparam)
+    #Join de toutes les arguments restants en mot de passe (contourner probleme si mdp contient un &)
+    passwordparam = "".join(params)
+    
+    print userparam + " " + passwordparam
+
     #verification des parametres
     if userparam == None or passwordparam == None:
         data["state"] = "NO"
