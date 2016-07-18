@@ -18,6 +18,12 @@ Les paramètres attendus sont:
 * user: Nom d'utilisateur 
 * password: Mot de passe  
 
+## Démonstration 
+
+Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?user=username&password=password  
+
+A noter qu'aucune information relative à vos identifiants n'est enregistrée. 
+
 ## Example 
 
 Url : http://localhost:8080/api?user=chaipokoi&password=12345  
