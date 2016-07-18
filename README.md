@@ -13,20 +13,20 @@ Exécuter le script api.py lancera un serveur web écoutant sur localhost:8080.
 L'accès à l'API se fait via http://localhost:8080/api .  
 Il est nécessaire de transmettre les identifiants de l'utilisateur à l'API. Ceci peut se réaliser via les méthodes GET ou POST (via un formulaire par exemple).  
 
-Les paramètres attendus sont: 
+Le paramètre attendu par la page se nomme 'params'. Il doit s'agir d'une chaine de caractère (username&password) encodée en base64 cryptée à l'aide de RSA via la clé publique fournie dans le répetoire 'example'.
+Vous trouverez dans ce même répertoire la procédure à suivre pour interroger l'API. 
 
-* user: Nom d'utilisateur 
-* password: Mot de passe  
+(A noter que le jeu de clé fournit dans le repo n'est pas celui utilisé en production)
 
 ## Démonstration 
 
-Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?user=username&password=password  
+Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?user=username&password=password  (OUTDATED, pas sécurisé)
 
 A noter qu'aucune information relative à vos identifiants n'est enregistrée. 
 
 ## Example 
 
-Url : http://localhost:8080/api?user=chaipokoi&password=12345  
+Url : http://localhost:8080/api?user=chaipokoi&password=12345  (OUTDATED, pas sécurisé)
 
 <pre>
 {
@@ -41,10 +41,6 @@ Url : http://localhost:8080/api?user=chaipokoi&password=12345
    "message":"It's OK"
 }
 </pre>
-
-## TODO
-
-* Encoder les informations de connexion afin de sécuriser les échanges
 
 ## Prérequis
 

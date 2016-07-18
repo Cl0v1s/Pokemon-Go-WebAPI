@@ -39,7 +39,9 @@ def api():
     params = request.query.get("params")
     if params == None: #Si c'est pas en get, on recupere en POST
         params = request.forms.get("params")
-    params = base64.b64decode(params)
+    params = params + "=="
+    params = base64.urlsafe_b64decode(params)
+
     params = rsa.decrypt(params, Privkey)
     params = params.split("&")
     userparam = params[0]
@@ -48,8 +50,6 @@ def api():
     #Join de toutes les arguments restants en mot de passe (contourner probleme si mdp contient un &)
     passwordparam = "".join(params)
     
-    print userparam + " " + passwordparam
-
     #verification des parametres
     if userparam == None or passwordparam == None:
         data["state"] = "NO"
