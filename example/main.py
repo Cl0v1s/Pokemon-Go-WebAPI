@@ -20,6 +20,6 @@ params = params.replace("=", "")
 
 #Assemblage de l'URL
 url = "http://pokemon-chaipokoi.rhcloud.com/api?params="+params
-
+print "Accessing "+url
 content = urllib2.urlopen(url).read()
 print content
