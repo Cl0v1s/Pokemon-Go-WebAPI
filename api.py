@@ -33,7 +33,9 @@ def search(pattern, string):
 #Retourne les informations de l'utilisateur precise
 @route("/api", method=['GET', 'POST'])
 def api():
-
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
     #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : "", "output" : ""};
     #Determination des arguments (decryptage)
@@ -96,6 +98,9 @@ def api():
 #Retourne la clef publique 
 @route("/pubkey")
 def getpubkey():
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
     #Chargement de la cle privee
     with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa.pub') as privatefile:
         keydata = privatefile.read()
