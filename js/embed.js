@@ -69,6 +69,6 @@ function startRequest(url)
 window.onload = function()
 {
     var params = parseQuery();
-    startRequest("http://pokemon-chaipokoi.rhcloud.com/api?params="+params);
+    startRequest("https://pokemon-chaipokoi.rhcloud.com/api?params="+params);
 }
 
