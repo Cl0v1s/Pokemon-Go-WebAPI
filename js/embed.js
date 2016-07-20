@@ -19,6 +19,17 @@ function showInfo(nod, name, value)
     nod.innerHTML += html;
 }
 
+/**
+ * Affiche une erreur dans le noeud spécifié
+ */
+function showError(nod, value)
+{
+    var html = "<div>\
+                    <span>"+value+"</span>\
+                </div>";
+    nod.innerHTML += html;
+}
+
 /* 
  * Examine la requete pour en extraire les paramètres
  */
@@ -38,7 +49,7 @@ function parseResponse(result)
     //gestion des erreurs
     if(data.state != "OK")
     {
-        node("errors").innerHTML = "<ul><li>"+data.message+"</li></ul>"; //affichage de l'erreur
+        showError(node("errors"), data.message);
         return;
     }
     //Affichage des statistiques
@@ -57,6 +68,10 @@ function startRequest(url)
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             parseResponse(xhttp.responseText);
+        }
+        else if(xhttp.readyState == 4)
+        {
+            showError(node("errors"), "Network or server error, please check your credentials and try again later.");
         }
     };
     console.log("Processing "+url);

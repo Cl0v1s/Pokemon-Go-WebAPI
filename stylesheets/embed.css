@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body
+{
+  background-image: url("./../assets/background.jpeg");
+  background-size: cover;
+}
+
+#content
+{
+    box-sizing: border-box;
+  background-color: #FAFAFA;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color: #414F4F;
+  font-family: Roboto;
+  padding-left: 100px;
+  position: relative;
+  height: 112px;
+}
+
+#content:before
+{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100%;
+  background-image: url("./../assets/pokeball.png");
+  background-size: 70% 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+}
+
+#content h2
+{
+  color: #898989;
+  font-size: 18px;
+  display: inline;
+  font-weight: normal;
+}
+
+#content h2:after
+{
+  content: ":";
+}
+
+#content #errors
+{
+  box-sizing: border-box;
+  height: 112px;
+  line-height: 112px;
+  margin-top: -10px;
+  vertical-align: middle;
+  position: relative;
+}
+
+#content #errors span:before
+{
+  content: "Error: ";
+  display: inline; 
+  font-size: 18px;
+  color: #D5888E;
+  
+}
