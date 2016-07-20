@@ -49,14 +49,23 @@ body
   content: ":";
 }
 
+#content #stat
+{
+  margin-top: 10px;
+}
+
 #content #errors
 {
   box-sizing: border-box;
-  height: 112px;
-  line-height: 112px;
   margin-top: -10px;
   vertical-align: middle;
   position: relative;
+}
+
+#content #errors span
+{
+    height: 112px;
+    line-height: 112px;
 }
 
 #content #errors span:before
