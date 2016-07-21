@@ -32,8 +32,8 @@ Pour se faire, vous devez donc récupérer la clef publique accessible à http:/
 Les données de l'API sont accessible à http://le-server/api. 
 
 Celle-ci attends un paramètre (via GET ou POST) nommé 'params'.  
-Il doit présenter les informations de connexion mise en forme tel que 'username&password'.
-Ces informations doivent être envoyé au serveur cryptée avec RSA grâce à la clef publique précedemment récupérée, et encodées en base64 urlsafe. 
+Il doit présenter les informations de connexion misent en forme tel que 'username&password'.
+Ces informations doivent être envoyées au serveur, cryptées avec RSA grâce à la clef publique précedemment récupérée, et encodées en base64 urlsafe. 
 
 Si tout se passe bien, l'API renverra les informations relatives au joueur spécifié. 
 
