@@ -1,7 +1,7 @@
 import rsa
 import os
 
-(pubkey, privkey) = rsa.newkeys(512)
+(pubkey, privkey) = rsa.newkeys(1024)
 
 with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa', "w") as privatefile:
     privatefile.write(privkey.save_pkcs1());
