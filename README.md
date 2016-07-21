@@ -26,7 +26,40 @@ In order to work, the API expects an access token created with the user's creden
 
 (A code sample is present in the example directory)
 
-### 2.2 Host the api
+### 2.2 Sample 
+
+Here is an example of an API call
+
+<pre>
+{
+   "player":{
+      "username":"Chaip0koi",
+      "level":1,
+      "since":1468745442804,
+      "pokecoin":0,
+      "encountered":1,
+      "next_xp":1000,
+      "stardust":0,
+      "pokedex":1,
+      "current_badge":{
+
+      },
+      "team":[
+         {
+            "id":7,
+            "sprite":"http://pokeapi.co/media/img/7.png",
+            "capture_date":1469094807665
+         }
+      ],
+      "xp":650,
+      "captured":1
+   },
+   "state":"OK",
+   "message":""
+}
+</pre>
+
+### 2.3 Host the api
 
 You can host the API by yourself.  
 You just have to follow theese simple steps.
