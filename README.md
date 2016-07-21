@@ -1,4 +1,4 @@
-# Pokémon Go WebAPI
+# Pokemon Go WebAPI
 
 ## Description 
 
