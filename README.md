@@ -82,8 +82,8 @@ You just have to follow theese simple steps.
 
 ## 4. Crédits 
 
-[Mila432](https://github.com/Mila432) for the login secrets
-[elliottcarlson](https://github.com/elliottcarlson) for the Google Auth PR
-[Tjado](https://github.com/tejado) for the pgoapi
-[AeonLucid](https://github.com/AeonLucid) for improved protos
-[AHAAAAAAA](https://github.com/AHAAAAAAA) for parts of the s2sphere stuff
+[Mila432](https://github.com/Mila432) for the login secrets  
+[elliottcarlson](https://github.com/elliottcarlson) for the Google Auth PR  
+[Tjado](https://github.com/tejado) for the pgoapi  
+[AeonLucid](https://github.com/AeonLucid) for improved protos  
+[AHAAAAAAA](https://github.com/AHAAAAAAA) for parts of the s2sphere stuff  
