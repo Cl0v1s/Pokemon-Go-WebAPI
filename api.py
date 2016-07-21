@@ -5,15 +5,14 @@ import rsa
 import base64
 from subprocess import Popen, PIPE
 
+from pgoweb import player
+
+from pgoapi import pgoapi
+
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Errors = ["[-] RPC server offline", "[-] Wrong username/password" ]
-Success = "[+] Login successful"
-Separator = "\n"
-    #Verification de la plateform d'execution
-if os.name == 'nt':
-    Separator = "\r\n"
+Debug = True
 
 #Chargement de la cle privee
 with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa') as privatefile:
@@ -22,13 +21,12 @@ Privkey = rsa.PrivateKey.load_pkcs1(keydata)
 
 #=============METHODES=============================================
 
-#Fonction de recherche par regex augmentee
-def search(pattern, string):
-    m = re.search(pattern, string)
-    if m != None: 
-        return m.group(1)
-    else: 
-        return "N/A"
+#Affiche l'erreur
+def showError(data, message):
+    data["state"] = "NO"
+    data["message"] = message
+    return data
+
 
 #Retourne les informations de l'utilisateur precise
 @route("/api", method=['GET', 'POST'])
@@ -37,63 +35,54 @@ def api():
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
     #Creation du dictionnaire de donnees
-    data = {"state" : "OK", "message" : "", "output" : ""};
-    #Determination des arguments (decryptage)
-    params = request.query.get("params")
-    if params == None: #Si c'est pas en get, on recupere en POST
-        params = request.forms.get("params")
-    params = params + "=="
-    params = base64.urlsafe_b64decode(params)
+    data = {"state" : "OK", "message" : ""};
+    if Debug == False:
+        #Determination des arguments (decryptage)
+        params = request.query.get("params")
+        if params == None: #Si c'est pas en get, on recupere en POST
+            params = request.forms.get("params")
+        params = params + "=="
+        params = base64.urlsafe_b64decode(params)
 
-    params = rsa.decrypt(params, Privkey)
-    params = params.split("&")
-    userparam = params[0]
-    #Suppression du premier arguments
-    params.remove(userparam)
-    #Join de toutes les arguments restants en mot de passe (contourner probleme si mdp contient un &)
-    passwordparam = "".join(params)
+        params = rsa.decrypt(params, Privkey)
+        params = params.split("&")
+        userparam = params[0]
+        #Suppression du premier arguments
+        params.remove(userparam)
+        #Join de toutes les arguments restants en mot de passe (contourner probleme si mdp contient un &)
+        passwordparam = "".join(params)
+    else:
+        userparam = request.query.get("user")
+        passwordparam = request.query.get("password")
     
     #verification des parametres
     if userparam == None or passwordparam == None:
-        data["state"] = "NO"
-        data["message"] = "You must specify a username and a password"
-        return data
+        return showError(data, "You must specify a username and a password")
+
 
     #Systeme d'authentification
+    auth_method = 'ptc'
     if "@gmail.com" in userparam:
-        auth = '-agoogle'
-    else: 
-        auth = '-aptc'
-    #Nom utilisateur
-    user = '-u'+userparam+'';
-    #Mot de passe 
-    password = '-p'+passwordparam+''
-    #Emplacement
-    location = '-l "New York, Washington Square"'
-    #Lancement du client api
-    process = Popen(["python", os.path.dirname(os.path.realpath(__file__)) + "/engine/main.py", auth, user, password, location], stdout=PIPE)
-    #lecture du resultat
-    output = process.communicate()[0].split(Separator);
-    #Gestion des erreurs
-    for entry in output: 
-        if entry in Errors:
-            data["state"] = "NO"
-            data["output"] = "<br>".join(output);
-            data["message"] = entry
-            return data #Arret des operation et signalement de l'erreur 
-        #Login reussit
-        if Success in entry:
-            data["message"] = "It's OK"
-            #Ajout de la sortie console 
-            data["output"] = "<br>".join(output);
-            #Remplissage des donnees
-            data["username"] = search("Username: (.*?)<br>", data["output"])
-            data["since"] = search("You are playing Pokemon Go since: (.*?)<br>", data["output"])
-            data["pokestorage"] = search("Poke Storage: (.*?)<br>", data["output"])
-            data["itemstorage"] = search("Item Storage: (.*?)<br>", data["output"])
-            data["pokecoin"] = search("POKECOIN: (.*?)<br>", data["output"])
-            data["stardust"] = search("STARDUST: (.*?)<br>", data["output"])
-            return data;
+        auth_method = 'google'
+
+    #Lancement de l'api
+    api = pgoapi.PGoApi()
+    if not api.login(auth_method, userparam, passwordparam):
+        return showError(data, "Wrong username/password or server error")
+
+    #Récupération des informations
+    api.get_player() #sur le joueur
+    api.get_inventory() #son inventaire
+    api_data = api.call()
+
+
+    pl = player.Player(api_data["responses"]["GET_PLAYER"])
+    pl.setPlayerStats(api_data["responses"]["GET_INVENTORY"])
+    pl.setTeam(api_data["responses"]["GET_INVENTORY"])
+
+    data["player"] = pl.getDataAsJson()
+    return data
+
 
 #Retourne la clef publique 
 @route("/pubkey")
@@ -107,6 +96,7 @@ def getpubkey():
     return {"pubkey" : keydata}
 
 
-application = default_app()
-
-#run(host='localhost', port=8080)
+if Debug == False: 
+    application = default_app()
+else:
+    run(host='localhost', port=8080)
