@@ -11,8 +11,7 @@ class Team:
         index = 1
         while entry != None: 
             entry = utilities.seek(data, 'pokemon_data', index)
-            print "Pokemon"
-            print entry
+ 
             index = index + 1
             if entry != None:
                 self.pokemons.append(pokemon.Pokemon(entry))

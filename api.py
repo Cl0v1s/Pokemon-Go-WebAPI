@@ -12,7 +12,7 @@ from pgoapi import pgoapi
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Debug = True
+Debug = False
 
 #Chargement de la cle privee
 with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa') as privatefile:
