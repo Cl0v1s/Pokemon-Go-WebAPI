@@ -52,11 +52,38 @@ function parseResponse(result)
         showError(node("errors"), data.message);
         return;
     }
-    //Affichage des statistiques
-    showInfo(node("stat"), "Username", data["username"]);
-    showInfo(node("stat"), "Play since", data["since"]);
-    showInfo(node("stat"), "Pokecoin", data["pokecoin"]);
-    showInfo(node("stat"), "Stardust", data["stardust"]);
+    //Affichage des statistiques du joueur
+    var player = data["player"];
+    showInfo(node("stat"), "Username", player["username"]);
+    var since = new Date(player["since"]);
+    since = since.getMonth() + "/" + since.getDate() + "/"+since.getFullYear();
+    showInfo(node("stat"), "Play since", since);
+    showInfo(node("stat"), "Pokecoin", player["pokecoin"]);
+    showInfo(node("stat"), "Stardust", player["stardust"]);
+    showInfo(node("stat"), "Level", player["level"]);
+    showInfo(node("stat"), "Experience", player["xp"] + "/" + player["next_xp"]);
+    showInfo(node("stat"), "Capture rate", player["captured"] + "/" + player["encountered"]);
+    showInfo(node("stat"), "Pokedex", player["pokedex"]);
+
+    //Affichage des pokemons du joueur
+    var team = player["team"];
+    team.sort(function(a,b) //tri du plus récent au plus vieux
+    {
+        if(a.capture_date < b.capture_date)
+            return 1;
+        else if(b.capture_date < a.capture_date)
+            return -1;
+        else return 0;
+    });
+    //Suppression des pokémons trop vieux
+    team.splice(6,team.length);
+
+    team.forEach(function(entry) {
+     showInfo(node("team"), "", "<img src='"+entry.sprite+"'>");   
+    });
+
+    
+    
 }
 
 /* 

@@ -51,7 +51,59 @@ body
 
 #content #stat
 {
+  float: left;
+  -webkit-column-count: 2;
+      -moz-column-count: 2;
+           column-count: 2;
+
+   -webkit-column-gap: 20px;
+      -moz-column-gap: 20px;
+           column-gap: 20px;
+
+}
+
+#content #team:before
+{
+  content: "Last caught pokemons"; 
+  position: absolute;
+  width: 105%;
+  text-align: center;
+  top: 60px;
+  color: #898989;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+#content #team
+{
+  position: relative;
   margin-top: 10px;
+  float: left;
+    -webkit-column-count: 3;
+      -moz-column-count: 3;
+           column-count: 2;
+
+   -webkit-column-gap: 5px;
+      -moz-column-gap: 5px;
+           column-gap: 5px;
+}
+
+#content #team div
+{
+  margin: 0;
+}
+
+
+#content #team img
+{
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+}
+
+#content #team h2
+{
+  display: none;
 }
 
 #content #errors
