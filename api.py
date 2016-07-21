@@ -12,7 +12,7 @@ from pgoapi import pgoapi
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Debug = False
+Debug = True
 
 #Chargement de la cle privee
 with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa') as privatefile:
@@ -70,7 +70,7 @@ def api():
     if not api.login(auth_method, userparam, passwordparam):
         return showError(data, "Wrong username/password or server error")
 
-    #Récupération des informations
+    #Recuperation des informations
     api.get_player() #sur le joueur
     api.get_inventory() #son inventaire
     api_data = api.call()
