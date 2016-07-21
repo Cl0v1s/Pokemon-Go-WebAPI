@@ -1,6 +1,6 @@
 # Pokemon Go WebAPI
 
-## Description 
+## 1. Description 
 
 This project aims to provide a JSON API allowing to retrieve data from the Pokemon Go servers reachable by any system connected to the Internet.   
 
@@ -8,9 +8,9 @@ In the future, the service will propose a "card" system to show your ingame prog
 
 Please note that your login informations are encrypted, not saved and will not be used by anyone expect yourself. 
 
-## How to use
+## 2. How to use
 
-### Use the API
+### 2.1 Use the API
 
 The API is already reachable at https://pokemon-chaipokoi.rhcloud.com/api  
 In order to work, the API expects an access token created with the user's credentials. To protect your data, the credentials must be encrypted with RSA and encoded in urlsafe base64.
@@ -26,7 +26,7 @@ In order to work, the API expects an access token created with the user's creden
 
 (A code sample is present in the example directory)
 
-### Host the api
+### 2.2 Host the api
 
 You can host the API by yourself.  
 You just have to follow theese simple steps.
@@ -38,7 +38,7 @@ You just have to follow theese simple steps.
 * Start the api.py script to start the api server 
 * You can now access your own version of the API !
 
-## Requirements
+## 3. Requirements
 
 - [Bottlepy](http://bottlepy.org)
 - [Python-rsa](https://pypi.python.org/pypi/rsa)
@@ -47,7 +47,7 @@ You just have to follow theese simple steps.
 - protobuf (>=3)
 - gpsoauth
 
-## Crédits 
+## 4. Crédits 
 
 [Mila432](https://github.com/Mila432) for the login secrets
 [elliottcarlson](https://github.com/elliottcarlson) for the Google Auth PR
