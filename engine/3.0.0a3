@@ -1,7 +1,0 @@
-Collecting protobuf
-  Using cached protobuf-2.6.1.tar.gz
-Requirement already satisfied (use --upgrade to upgrade): setuptools in c:\python27\lib\site-packages (from protobuf)
-Installing collected packages: protobuf
-  Running setup.py install for protobuf: started
-    Running setup.py install for protobuf: finished with status 'done'
-Successfully installed protobuf-2.6.1
