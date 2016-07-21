@@ -2,73 +2,55 @@
 
 ## Description 
 
-Ce projet vise à fournir une interface web au projet de [Tejado](https://github.com/tejado/pokemongo-api-demo), permettant de consulter des informations relatives 
-au jeu en réalité augmentée Pokémon GO. 
+This project aims to provide a JSON API allowing to retrieve data from the Pokemon Go servers reachable by any system connected to the Internet.   
 
-A terme, le service proposera des 'cartes' à distribuer sous forme d'image et d'iframe web pour exposer son avancée en jeu. 
+In the future, the service will propose a "card" system to show your ingame progression to your friends. 
 
-## Usage 
+Please note that your login informations are encrypted, not saved and will not be used by anyone expect yourself. 
 
-## Hébergement de l'API
+## How to use
 
-### Générer un jeu de clés
+### Use the API
 
-Pour être en mesure de communiquer avec l'API, les informations de connexion doivent être cryptées via RSA.  
-Pour l'utiliser, générez tout d'abord un jeu de clés en exécutant le script genkeys.py.
+The API is already reachable at https://pokemon-chaipokoi.rhcloud.com/api  
+In order to work, the API expects an access token created with the user's credentials. To protect your data, the credentials must be encrypted with RSA and encoded in urlsafe base64.
 
-### Lancer l'API
+#### The process
 
-La seconde étape est de lancer l'API. Pour se faire, exécutez le script api.py. Celui-ci va lancer un serveur HTTP.
+* Get the API public key at https://pokemon-chaipokoi.rhcloud.com/pubkey
+* Format the credentials in the following format: username&password
+* Encrypt the credentials with RSA and the given public key
+* Encode the encrypted credentials in urlsafe base64
+* Access the API at https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token
+* Get your data !
 
-## Communiquer avec l'API
+(A code sample is present in the example directory)
 
-### Récupérer la clef publique 
+### Host the api
 
-Pour communiquer avec l'API, les informations de connexion doivent être cryptées via RSA.  
-Pour se faire, vous devez donc récupérer la clef publique accessible à http://le-server/pubkey
+You can host the API by yourself.  
+You just have to follow theese simple steps.
 
-### Se connecter à l'API
+#### The process
 
-Les données de l'API sont accessible à http://le-server/api. 
+* Send the code on your server
+* Start the genkeys.py script to create new private/public rsa keys
+* Start the api.py script to start the api server 
+* You can now access your own version of the API !
 
-Celle-ci attends un paramètre (via GET ou POST) nommé 'params'.  
-Il doit présenter les informations de connexion misent en forme tel que 'username&password'.
-Ces informations doivent être envoyées au serveur, cryptées avec RSA grâce à la clef publique précedemment récupérée, et encodées en base64 urlsafe. 
-
-Si tout se passe bien, l'API renverra les informations relatives au joueur spécifié. 
-
-## Démonstration 
-
-Vous pouvez tester l'API ici: http://pokemon-chaipokoi.rhcloud.com/api?params=Bzpalabvoo_x4cU6ZzTjgZsbCGBMrGQykD2IuT86QRLgqlmDS7DnkzUrHMd1wa7AylUZRqxF1RIIERcj4u9Tjg
-
-A noter qu'aucune information relative à vos identifiants n'est enregistrée. 
-
-Un exemple de script client est présent dans "example/main.py". 
-
-## Exemple 
-
-Url : http://localhost:8080/api?params=Bzpalabvoo_x4cU6ZzTjgZsbCGBMrGQykD2IuT86QRLgqlmDS7DnkzUrHMd1wa7AylUZRqxF1RIIERcj4u9Tjg
-
-<pre>
-{
-   "username":"chaipokoi",
-   "itemstorage":"350",
-   "pokestorage":"250",
-   "since":"2016-07-17 10:50:42",
-   "pokecoin":"0",
-   "state":"OK",
-   "stardust":"0",
-   "output":"[!] Your given location: Washington Square, Greenwich, NY 12834, USA<br>[!] lat/long/alt: 43.0909305 -73.4989367 0.0<br>[!] PTC login for: chaipokoi<br>[+] RPC Session Token: TGT-3975819-HVp6bJxuMpT1D ...<br>[+] Received API endpoint: https://pgorelease.nianticlabs.com/plfe/62/rpc<br>[+] Login successful<br>[+] Username: chaipokoi<br>[+] You are playing Pokemon Go since: 2016-07-17 10:50:42<br>[+] Poke Storage: 250<br>[+] Item Storage: 350<br>[+] POKECOIN: 0<br>[+] STARDUST: 0<br>",
-   "message":"It's OK"
-}
-</pre>
-
-## Prérequis
+## Requirements
 
 - [Bottlepy](http://bottlepy.org)
-- Les élements requis par le projet de [Tejado](https://github.com/tejado).  
+- [Python-rsa](https://pypi.python.org/pypi/rsa)
+- Python 2.7
+- requests
+- protobuf (>=3)
+- gpsoauth
 
 ## Crédits 
 
-Thanks a lot to [Mila432](https://github.com/Mila432/Pokemon_Go_API) and [Tejado](https://github.com/tejado) for the engine behind the webApi  
-Thanks a lot to [elliottcarlson](https://github.com/elliottcarlson) for the Google Auth PR  
+[Mila432](https://github.com/Mila432) for the login secrets
+[elliottcarlson](https://github.com/elliottcarlson) for the Google Auth PR
+[Tjado](https://github.com/tejado) for the pgoapi
+[AeonLucid](https://github.com/AeonLucid) for improved protos
+[AHAAAAAAA](https://github.com/AHAAAAAAA) for parts of the s2sphere stuff
