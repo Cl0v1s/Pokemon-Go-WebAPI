@@ -5,6 +5,12 @@ import urllib2
 #lecture de la cle publique 
 with open('id_rsa.pub') as privatefile:
     keydata = privatefile.read()
+#Conversion de X.509 vers PKCS1
+keydata = keydata.replace("-----BEGIN PUBLIC KEY-----", "")
+keydata = keydata[33:len(keydata)]
+keydata = "-----BEGIN RSA PUBLIC KEY-----\n" + keydata;
+keydata = keydata.replace("-----END PUBLIC KEY-----", "-----END RSA PUBLIC KEY-----")
+
 pubkey = rsa.PublicKey.load_pkcs1(keydata)
 
 #Determination des parametres a encrypter

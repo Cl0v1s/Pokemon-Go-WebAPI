@@ -43,8 +43,10 @@ def api():
             params = request.forms.get("params")
         params = params + "=="
         params = base64.urlsafe_b64decode(params)
-
-        params = rsa.decrypt(params, Privkey)
+        try:
+            params = rsa.decrypt(params, Privkey)
+        except:
+            return showError(data, "There is something wrong with your public key, try to update it.")
         params = params.split("&")
         userparam = params[0]
         #Suppression du premier arguments
@@ -54,7 +56,7 @@ def api():
     else:
         userparam = request.query.get("user")
         passwordparam = request.query.get("password")
-    
+
     #verification des parametres
     if userparam == None or passwordparam == None:
         return showError(data, "You must specify a username and a password")
