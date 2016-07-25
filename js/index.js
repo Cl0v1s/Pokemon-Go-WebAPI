@@ -29,21 +29,13 @@ function processStart()
 function processEnd(key)
 {
     key = JSON.parse(key).pubkey;
-    key = key.replace(/\n/g, "");
+    //key = key.replace(/\n/g, "");
     var username = node("username").value;
     var password = node("password").value;
     var credentials = username+"&"+password;
     
 
 
-    var encrypt = new JSEncrypt();
-    encrypt.setPublicKey(key);
-    var token = encrypt.encrypt(credentials);
-    //token = token.replace(/\+/g, '-').replace(/\//g, '_');//conversion en url safe
-    token = atob(token);
-    console.log(token);
-    token = btoa("blah");
-    console.log(token);
 }
 
 window.onload = function()
