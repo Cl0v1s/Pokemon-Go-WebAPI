@@ -95,7 +95,14 @@ def getpubkey():
     #Chargement de la cle privee
     with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa.pub') as privatefile:
         keydata = privatefile.read()
-    return {"pubkey" : keydata}
+    #Conversion de X.509 vers PKCS1
+    pkcs = keydata.replace("-----BEGIN PUBLIC KEY-----", "")
+    pkcs = pkcs[33:len(pkcs)]
+    pkcs = "-----BEGIN RSA PUBLIC KEY-----\n" + pkcs;
+    pkcs = pkcs.replace("-----END PUBLIC KEY-----", "-----END RSA PUBLIC KEY-----")
+    pkcs = rsa.PublicKey.load_pkcs1(pkcs)
+
+    return {"pubkey" : keydata, "e" : pkcs.e, "n": pkcs.n}
 
 
 if Debug == False: 
