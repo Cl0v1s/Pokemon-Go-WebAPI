@@ -19,22 +19,29 @@ function processStart()
         }
         else if(xhttp.readyState == 4)
         {
-            showError(node("errors"), "Network or server error, please check your credentials and try again later.");
+            //showError(node("errors"), "Network or server error, please check your credentials and try again later.");
         }
     };
-    xhttp.open("GET", "https://pokemon-chaipokoi.rhcloud.com/pubkey", true);
+    xhttp.open("GET", "http://localhost:8080/pubkey", true);
     xhttp.send();
 }
 
 function processEnd(key)
 {
-    key = JSON.parse(key).pubkey;
-    //key = key.replace(/\n/g, "");
+    key = JSON.parse(key);
+    var e = key.e;
+    var n = key.n;
+
     var username = node("username").value;
     var password = node("password").value;
     var credentials = username+"&"+password;
     
-
+    var encrypter = new RSAKey;
+    console.log(e);
+    console.log(n);
+    encrypter.setPublic(n,e);
+    var cypher = encrypter.encrypt(credentials);
+    console.log(cypher);
 
 }
 
