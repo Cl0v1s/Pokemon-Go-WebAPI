@@ -13,7 +13,7 @@ from pgoapi import pgoapi
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Debug = True
+Debug = False
 
 #=============METHODES=============================================
 
@@ -32,7 +32,7 @@ def api():
     response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
     #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : ""};
-    if Debug == True:
+    if Debug == False:
         #Determination des arguments (decryptage)
         params = request.query.get("params")
         if params == None: #Si c'est pas en get, on recupere en POST
