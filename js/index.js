@@ -26,22 +26,23 @@ function processStart()
     xhttp.send();
 }
 
+/**
+ * Une fois la clef publique récupérée, on encrypte les données et on les envoie
+ */
 function processEnd(key)
 {
     key = JSON.parse(key);
-    var e = key.e;
-    var n = key.n;
+    key = key.pubkey;
 
     var username = node("username").value;
     var password = node("password").value;
     var credentials = username+"&"+password;
     
-    var encrypter = new RSAKey;
-    console.log(e);
-    console.log(n);
-    encrypter.setPublic(n,e);
-    var cypher = encrypter.encrypt(credentials);
-    console.log(cypher);
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(key);
+    var token = encrypt.encrypt(credentials);
+    console.log(token)
+
 
 }
 
