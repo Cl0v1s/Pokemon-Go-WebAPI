@@ -19,7 +19,7 @@ In order to work, the API expects an access token created with the user's creden
 
 * Get the API public key at https://pokemon-chaipokoi.rhcloud.com/pubkey
 * Format the credentials in the following format: username&password
-* Encrypt the credentials with RSA and the given public key
+* Encrypt the credentials with RSA (PKCS#1 v1.5) and the given public key
 * Encode the encrypted credentials in urlsafe base64 to produce your access token.
 * Access the API at https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token
 * Get your data !
