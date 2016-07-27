@@ -102,7 +102,6 @@ def getpubkey():
     pkcs = pkcs[33:len(pkcs)]
     pkcs = "-----BEGIN RSA PUBLIC KEY-----\n" + pkcs;
     pkcs = pkcs.replace("-----END PUBLIC KEY-----", "-----END RSA PUBLIC KEY-----")
-    pkcs = rsa.PublicKey.load_pkcs1(pkcs)
 
     return {"pubkey" : keydata}
 
