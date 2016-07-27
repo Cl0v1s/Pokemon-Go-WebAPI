@@ -1,8 +1,9 @@
 from bottle import *
 import os
 import re
-import rsa
-import base64
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+from base64 import *
 from subprocess import Popen, PIPE
 
 from pgoweb import player
@@ -12,12 +13,7 @@ from pgoapi import pgoapi
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Debug = False
-
-#Chargement de la cle privee
-with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa') as privatefile:
-    keydata = privatefile.read()
-Privkey = rsa.PrivateKey.load_pkcs1(keydata)
+Debug = True
 
 #=============METHODES=============================================
 
@@ -36,17 +32,23 @@ def api():
     response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
     #Creation du dictionnaire de donnees
     data = {"state" : "OK", "message" : ""};
-    if Debug == False:
+    if Debug == True:
         #Determination des arguments (decryptage)
         params = request.query.get("params")
         if params == None: #Si c'est pas en get, on recupere en POST
             params = request.forms.get("params")
-        params = params + "=="
+
+        #chargement de la clef privee
+        keydata = None
+        with open(os.path.dirname(os.path.realpath(__file__))+'/id_rsa') as privatefile:
+            keydata = privatefile.read()
+        rsakey = RSA.importKey(keydata)
+        rsakey = PKCS1_v1_5.new(rsakey)
+
+        #decryptage des parametres 
         params = base64.urlsafe_b64decode(params)
-        try:
-            params = rsa.decrypt(params, Privkey)
-        except:
-            return showError(data, "There is something wrong with your public key, try to update it.")
+        params = rsakey.decrypt(params, 'bollox')
+
         params = params.split("&")
         userparam = params[0]
         #Suppression du premier arguments
@@ -102,7 +104,7 @@ def getpubkey():
     pkcs = pkcs.replace("-----END PUBLIC KEY-----", "-----END RSA PUBLIC KEY-----")
     pkcs = rsa.PublicKey.load_pkcs1(pkcs)
 
-    return {"pubkey" : keydata, "e" : pkcs.e, "n": pkcs.n}
+    return {"pubkey" : keydata}
 
 
 if Debug == False: 
