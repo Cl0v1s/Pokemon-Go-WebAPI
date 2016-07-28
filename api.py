@@ -48,7 +48,11 @@ def api():
 
         #decryptage des parametres 
         params = base64.urlsafe_b64decode(params)
-        params = rsakey.decrypt(params, 'bollox')
+
+        try:
+            params = rsakey.decrypt(params, 'bollox')
+        except:
+            return showError(data, "You are using an outdated version, please regenerate your card at https://chaipokoi.github.io/Pokemon-Go-WebAPI/.")
 
         params = params.split("&")
         userparam = params[0]
