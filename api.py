@@ -69,6 +69,14 @@ def api():
     if "@gmail.com" in userparam:
         auth_method = 'google'
 
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(module)10s] [%(levelname)5s] %(message)s')
+    # log level for http request class
+    logging.getLogger("requests").setLevel(logging.WARNING)
+    # log level for main pgoapi class
+    logging.getLogger("pgoapi").setLevel(logging.INFO)
+    # log level for internal pgoapi class
+    logging.getLogger("rpc_api").setLevel(logging.INFO)
+
     #Lancement de l'api
     api = pgoapi.PGoApi()
     if not api.login(auth_method, userparam, passwordparam):
