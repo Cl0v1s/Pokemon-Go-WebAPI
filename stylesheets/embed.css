@@ -140,7 +140,6 @@ Cellule pour un pokemon dans la liste**/
 {
   box-sizing: border-box;
   margin-top: -10px;
-  vertical-align: middle;
   width: 100%;
   text-align: center;
   margin: auto;
@@ -157,6 +156,7 @@ Cellule pour un pokemon dans la liste**/
 {
   background-color: rgba(0,0,0,0);
   float: none;
+  text-align: center;
 
 }
 
