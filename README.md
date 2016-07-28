@@ -13,13 +13,13 @@ Please note that your login informations are encrypted, not saved and will not b
 ### 2.1 Use the API
 
 The API is already reachable at https://pokemon-chaipokoi.rhcloud.com/api  
-In order to work, the API expects an access token created with the user's credentials. To protect your data, the credentials must be encrypted with RSA and encoded in urlsafe base64.
+In order to work, the API expects an access token created with the user's credentials. To protect your data, the credentials must be encrypted with RSA (PKCS#1 v1.5) and encoded in urlsafe base64.
 
 #### The process
 
 * Get the API public key at https://pokemon-chaipokoi.rhcloud.com/pubkey
 * Format the credentials in the following format: username&password
-* Encrypt the credentials with RSA and the given public key
+* Encrypt the credentials with RSA (PKCS#1 v1.5) and the given public key
 * Encode the encrypted credentials in urlsafe base64 to produce your access token.
 * Access the API at https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token
 * Get your data !
@@ -74,7 +74,7 @@ You just have to follow theese simple steps.
 ## 3. Requirements
 
 - [Bottlepy](http://bottlepy.org)
-- [Python-rsa](https://pypi.python.org/pypi/rsa)
+- [Pycrypto](https://pypi.python.org/pypi/pycrypto)
 - Python 2.7
 - requests
 - protobuf (>=3)
