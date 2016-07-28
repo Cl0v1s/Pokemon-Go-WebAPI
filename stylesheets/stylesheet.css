@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url('./../assets/Pokemon GB.ttf');
+}
+
 * {
   box-sizing: border-box; }
 
@@ -8,6 +13,11 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: #606c71; }
+
+h1,h2, h3
+{
+  font-family: 'pokemon';
+}
 
 a {
   color: #1e6bb8;
@@ -56,8 +66,14 @@ a {
 .page-header {
   color: #fff;
   text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  /*background-color: #159957*/;
+  /*background-image: linear-gradient(120deg, #155799, #159957);*/
+  background-image: url("./../assets/pokemongo.jpg");
+  background-size: 100% auto;
+  background-position: 0 -200px;
+  background-repeat: no-repeat;
+  
+   }
 
 @media screen and (min-width: 64em) {
   .page-header {
@@ -112,7 +128,7 @@ a {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: normal;
-  color: #159957; }
+  color: #415452; }
 .main-content p {
   margin-bottom: 1em; }
 .main-content code {
@@ -264,7 +280,7 @@ button
   position: absolute;
   top: 10px;
   font-size: 20px;
-  color: #15996F;
+  color: #415452;
   
 }
 

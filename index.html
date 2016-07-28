@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Pokemon Go WebApi by chaipokoi</title>
+    <title>PokemonGo WebApi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -16,35 +16,37 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Pokemon Go WebApi</h1>
-      <h2 class="project-tagline">Retrieve and show data from Pokemon Go servers.</h2>
-      <a href="https://github.com/chaipokoi/Pokemon-Go-WebAPI" class="btn">View on GitHub</a>
-      <a href="https://github.com/chaipokoi/Pokemon-Go-WebAPI/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/chaipokoi/Pokemon-Go-WebAPI/tarball/master" class="btn">Download .tar.gz</a>
+      <h1 class="project-name">
+        <img src="assets/icon.png"><br>
+        PokemonGo Trainer Card
+      </h1>
+      <h2 class="project-tagline">Show to your friends the good trainer you are.</h2>
+      <a href="#for-trainers" class="btn">For Trainers</a>
+      <a href="#for-developpers" class="btn">For Developers</a>
     </section>
 
     <section class="main-content">
       <h2>
 <a id="what-is-it-" class="anchor" href="#what-is-it-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is it ?</h2>
 
-<p>The target of this project is to provide a web interface to the <a href="https://github.com/tejado/pgoapi">Tejado's project</a>, allowing to retrieve data from the Pokemon Go servers. </p>
+<p>Create your trainer card here and share it on the net to show your progress to people around you !
+Your trainer card will be updated at any time.</p>
 
-<h2>
-<a id="what-can-i-do-with-it-" class="anchor" href="#what-can-i-do-with-it-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What can I do with it ?</h2>
+<p>Here is a sample of what you will get:</p>
+<iframe scrolling='no' src='https://chaipokoi.github.io/Pokemon-Go-WebAPI/embed.html?params=ZWfyaS961Kr-y-SAjLpo78Z9c9qxeKRpQ0Pj7sI6XLjiOxF7LVcHIlE7ynM-1U4mQk_wwhq_l-D_qp8tNhjzV07ACG8R-kHn9efGRLhQGAySTiQL-BiKJL5v7ACW_5lrbqMtr8N0_s66Ye-PvL-8YZ25yKFZBYmQd6ya-Kx3tDs9O_Duo1YDfRNXXTX-ERG7kuN8xr-ZasXNyX0Ji5pWTP4i7h8OvvbG6VlOWTICVcSAD3RKY7EmzKu60ARzkZMmUQMB2kEE-OcKdloMcHqf1uWHPNBGBiGnl42ancxm7L5kF_fI3h4mayCt4jOeJGFsmpbiUdMVSrFWXnPpia_0Sg==' style='width: 100%; height: 140px; overflow: hidden; border:none;' scrolling='NO'></iframe>    
 
-<p>This project allows simple users to generate "cards" exposing their progression ingame.  </p>
-
-<p>Moreover, we propose to developers a JSON endpoint to get data from the game. </p>
 
 <h2>
 <a id="how-can-i-use-it-" class="anchor" href="#how-can-i-use-it-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How can I use it ?</h2>
 
 <h3>
-<a id="for-simple-users" class="anchor" href="#for-simple-users" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For simple users</h3>
+<a id="for-trainers" class="anchor" href="#for-trainers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For Trainers</h3>
+
+<p>To get your trainer card, enter your login informations in the fields below. We will compute and encrypte them to produce some web code (HTML). Copy and paste this code where you want, it will show your trainer card.</p>
 
 <div id="generator">
     <input id="username" placeholder="Enter your username here..."><input id="password" type="password" placeholder="Enter your password here..."><button id="process">Process !</button>
-    <p style='font-size: 10px;'>*Please remember that your credentials are not saved, or used. Moreover they are encrypted before leaving your computer.</p>
+    <p style='font-size: 10px;'>*Please remember that your credentials are not saved, or used. Moreover they are encrypted before leaving your computer, we will never know them.</p>
 </div>
 <iframe id="sample" scrolling='no' src='https://chaipokoi.github.io/Pokemon-Go-WebAPI/embed.html?params=ZWfyaS961Kr-y-SAjLpo78Z9c9qxeKRpQ0Pj7sI6XLjiOxF7LVcHIlE7ynM-1U4mQk_wwhq_l-D_qp8tNhjzV07ACG8R-kHn9efGRLhQGAySTiQL-BiKJL5v7ACW_5lrbqMtr8N0_s66Ye-PvL-8YZ25yKFZBYmQd6ya-Kx3tDs9O_Duo1YDfRNXXTX-ERG7kuN8xr-ZasXNyX0Ji5pWTP4i7h8OvvbG6VlOWTICVcSAD3RKY7EmzKu60ARzkZMmUQMB2kEE-OcKdloMcHqf1uWHPNBGBiGnl42ancxm7L5kF_fI3h4mayCt4jOeJGFsmpbiUdMVSrFWXnPpia_0Sg==' style='width: 100%; height: 140px; overflow: hidden; border:none;' scrolling='NO'></iframe>    
 
@@ -53,10 +55,11 @@
 <h3>
 <a id="for-developpers" class="anchor" href="#for-developpers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For developpers</h3>
 
+<p>We also provide a JSON API endpoint to retrieve data from pokemonGo servers.</p>
 <p>More informations are availables in the <a href="https://github.com/chaipokoi/Pokemon-Go-WebAPI">Github repo</a>. </p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/chaipokoi/Pokemon-Go-WebAPI">Pokemon-go-webapi</a> is maintained by <a href="https://github.com/chaipokoi">chaipokoi</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/chaipokoi/Pokemon-Go-WebAPI">PokemonGo trainer card</a> is maintained by <a href="https://github.com/chaipokoi">chaipokoi</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
