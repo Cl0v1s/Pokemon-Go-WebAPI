@@ -30,7 +30,7 @@ function showCode(token)
     node("generator").innerHTML = "\
     Here is your card integration code, paste it in a forum, a web page or any place that supports iframes.<br>\
     <textarea style='width: 100%;'>\
-        <iframe scrolling='no' src='https://chaipokoi.github.io/Pokemon-Go-WebAPI/embed.html?params="+token+"' style='width: 100%; height: 325px; overflow: hidden; border:none;' scrolling='NO'></iframe>\
+        <iframe scrolling='no' src='https://chaipokoi.github.io/Pokemon-Go-WebAPI/embed.html?params="+token+"' style='width: 100%; height: 335px; overflow: hidden; border:none;' scrolling='NO'></iframe>\
     </textarea>";
 
     node("sample").src = "https://chaipokoi.github.io/Pokemon-Go-WebAPI/embed.html?params="+token;
