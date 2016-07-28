@@ -75,8 +75,15 @@ function parseResponse(result)
             return -1;
         else return 0;
     });
+    team.push(team[0]);
+    team.push(team[0]);
+    team.push(team[0]);
+    team.push(team[0]);
+    team.push(team[0]);
+    team.push(team[0]);
     //Suppression des pokémons trop vieux
     team.splice(6,team.length);
+
 
     team.forEach(function(entry) {
      showInfo(node("team"), "", "<img src='"+entry.sprite+"'>");   
