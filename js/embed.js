@@ -99,7 +99,7 @@ function startRequest(url)
         }
         else if(xhttp.readyState == 4)
         {
-            showError(node("errors"), "Network or server error, please check your credentials and try again later.");
+            showError(node("errors"), "There is something wrong with the PokemonGo servers :'(");
         }
     };
     console.log("Processing "+url);
