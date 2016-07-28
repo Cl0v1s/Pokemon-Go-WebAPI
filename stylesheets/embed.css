@@ -155,9 +155,7 @@ Cellule pour un pokemon dans la liste**/
 
 #content #errors span
 {
-    height: 300px;
-    line-height: 200px;
-    background-color: rgba(0,0,0,0);
+  background-color: rgba(0,0,0,0);
   float: none;
 
 }
