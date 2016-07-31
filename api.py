@@ -13,7 +13,7 @@ from pgoapi import utilities as util
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Debug = True
+Debug = False
 
 #=============METHODES=============================================
 
