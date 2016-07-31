@@ -7,8 +7,6 @@ from Crypto.Cipher import PKCS1_v1_5
 from base64 import *
 from subprocess import Popen, PIPE
 
-from pgoweb import player
-
 from pgoapi import pgoapi
 from pgoapi import utilities as util
 
