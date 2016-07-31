@@ -30,7 +30,8 @@ In order to work, the API expects an access token created with the user's creden
 your_requests must be a string containing your differents requests separated by a ",".  
 e.g: https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token&requests=get_player,get_inventory
 
-The complete list of the available requests is [here](https://github.com/tejado/pgoapi/wiki/api_functions). 
+The complete list of the available requests is [here](https://github.com/tejado/pgoapi/wiki/api_functions).  
+(We only support requests without parameters for now)
 
 ### 2.2 Sample 
 
