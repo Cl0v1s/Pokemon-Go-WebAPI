@@ -54,7 +54,6 @@ function parseResponse(result)
     }
     //Affichage des statistiques du joueur
     var player = data["results"]["responses"]["GET_PLAYER"]["player_data"];
-    console.log(player);
     showInfo(node("stat"), "Username", player["username"]);
     var since = new Date(player["creation_timestamp_ms"]);//affichage de la date de debut de jeu
     since = since.getMonth() + "/" + since.getDate() + "/"+since.getFullYear();
@@ -86,14 +85,14 @@ function parseResponse(result)
     //Affichage des pokemons du joueur
     var team = new Array();
     var teamData = data["results"]["responses"]["GET_INVENTORY"]["inventory_delta"]["inventory_items"]; //récupération des pokemons
-    for(var i = 0; i != player.length; i++)
+    for(var i = 0; i != teamData.length; i++)
     {
         var item = teamData[i]["inventory_item_data"];
-        if(item["pokemon_data"] != undefined)
+        if(item["pokemon_data"] != undefined && item["pokemon_data"]["is_egg"] != true)
         {
             //récupération du sprite
-            
-            team.push(item["pokemon_data"])
+            item["pokemon_data"]["sprite"] = "http://pokeapi.co/media/img/"+item["pokemon_data"]["pokemon_id"]+".png";
+            team.push(item["pokemon_data"]);
         }
     }
     team.sort(function(a,b) //tri du plus récent au plus vieux
@@ -109,7 +108,7 @@ function parseResponse(result)
 
 
     team.forEach(function(entry) {
-     showInfo(node("team"), "", "<img src='"+entry.sprite+"'>");   
+     showInfo(node("team"), "", "<img src='"+entry["sprite"]+"'>");   
     });
 
     
@@ -141,6 +140,6 @@ function startRequest(url)
 window.onload = function()
 {
     var params = parseQuery();
-    startRequest("https://localhost:8080/api?params="+params+"&requests=get_player,get_inventory");
+    startRequest("https://pokemon-chaipokoi.rhcloud.com/api?params="+params+"&requests=get_player,get_inventory");
 }
 
