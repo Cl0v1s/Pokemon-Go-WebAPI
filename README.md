@@ -2,9 +2,10 @@
 
 ## 1. Description 
 
-This project aims to provide a JSON API allowing to retrieve data from the Pokemon Go servers reachable by any system connected to the Internet.   
+This project aims to provide a JSON API allowing to retrieve data from the Pokemon Go servers reachable by any system connected to the Internet. 
+The system is based on the [Tjado's](https://github.com/tejado) work, [pgoapi](https://github.com/tejado/pgoapi).   
 
-In the future, the service will propose a "card" system to show your ingame progression to your friends. 
+The service also propose a "card" system to show your ingame progression to your friends at https://chaipokoi.github.io/Pokemon-Go-WebAPI/. 
 
 Please note that your login informations are encrypted, not saved and will not be used by anyone expect yourself. 
 
@@ -21,42 +22,22 @@ In order to work, the API expects an access token created with the user's creden
 * Format the credentials in the following format: username&password
 * Encrypt the credentials with RSA (PKCS#1 v1.5) and the given public key
 * Encode the encrypted credentials in urlsafe base64 to produce your access token.
-* Access the API at https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token
+* Access the API at https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token&requests=your_requests
 * Get your data !
 
 (A code sample is present in the example directory)
+
+your_requests must be a string containing your differents requests separated by a ",".  
+e.g: https://pokemon-chaipokoi.rhcloud.com/api?params=your_access_token&requests=get_player,get_inventory
+
+The complete list of the available request is [here](https://github.com/tejado/pgoapi/wiki/api_functions). 
 
 ### 2.2 Sample 
 
 Here is an example of an API call
 
 <pre>
-{
-   "player":{
-      "username":"Chaip0koi",
-      "level":1,
-      "since":1468745442804,
-      "pokecoin":0,
-      "encountered":1,
-      "next_xp":1000,
-      "stardust":0,
-      "pokedex":1,
-      "current_badge":{
-
-      },
-      "team":[
-         {
-            "id":7,
-            "sprite":"http://pokeapi.co/media/img/7.png",
-            "capture_date":1469094807665
-         }
-      ],
-      "xp":650,
-      "captured":1
-   },
-   "state":"OK",
-   "message":""
-}
+NEED UPDATE
 </pre>
 
 ### 2.3 Host the api
@@ -67,7 +48,7 @@ You just have to follow theese simple steps.
 #### The process
 
 * Send the code on your server
-* Start the genkeys.py script to create new private/public rsa keys
+* Start the genkeys.sh script to create new private/public rsa keys
 * Start the api.py script to start the api server 
 * You can now access your own version of the API !
 

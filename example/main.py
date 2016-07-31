@@ -25,7 +25,7 @@ params = base64.urlsafe_b64encode(params)
 print "Encoded: "+params
 
 #Assemblage de l'URL
-url = "http://localhost:8080/api?params="+params
+url = "http://localhost:8080/api?params="+params+"&requests=get_player,get_inventory"
 
 content = urllib2.urlopen(url).read()
 print content
