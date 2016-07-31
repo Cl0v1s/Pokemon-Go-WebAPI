@@ -50,6 +50,8 @@ function parseResponse(result)
     console.log(data);
     if(data.state != "OK" || data["results"] == null)
     {
+        if(data["results"] == null)
+            data.message = "Servers busy.";
         showError(node("errors"), data.message);
         return;
     }
