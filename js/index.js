@@ -53,7 +53,7 @@ function retrieveStart(token)
             //showError(node("errors"), "Network or server error, please check your credentials and try again later.");
         }
     };
-    xhttp.open("GET", "https://pokemon-chaipokoi.rhcloud.com/api?params="+token, true);
+    xhttp.open("GET", "https://pokemon-chaipokoi.rhcloud.com/api?params="+token+"&requests=get_player", true);
     xhttp.send();
 }
 
