@@ -77,7 +77,7 @@ class PGoApi:
         return request
 
     def __getattr__(self, func):
-    
+
         def function(**kwargs):
             request = self.create_request()
             getattr(request, func)( _call_direct = True, **kwargs )

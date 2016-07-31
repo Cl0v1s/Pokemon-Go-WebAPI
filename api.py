@@ -10,6 +10,7 @@ from subprocess import Popen, PIPE
 from pgoweb import player
 
 from pgoapi import pgoapi
+from pgoapi import utilities as util
 
 #=============VARIABLES=============================================
 
@@ -83,20 +84,32 @@ def api():
 
     #Lancement de l'api
     api = pgoapi.PGoApi()
-    if not api.login(auth_method, userparam, passwordparam):
+
+    #Parametrage de la position 
+    position = util.get_pos_by_name("New York")
+    api.set_position(*position)
+
+    #Login
+    if not api.login(auth_method, userparam, passwordparam, app_simulation = True):
         return showError(data, "Wrong username/password or server error")
 
-    #Recuperation des informations
-    api.get_player() #sur le joueur
-    api.get_inventory() #son inventaire
-    api_data = api.call()
+    #Lancement des requetes
+    asks = request.query.get("requests")
+    if "," in asks:
+        asks = asks.split(",")
+        req = api.create_request()
+        for ask in asks:
+            try:
+                getattr(req, ask)()
+            except:
+                return showError(data, "Api call '"+ask+"' doesnt exist.")
+        data["results"] = req.call()
+    else: 
+        try:
+            data["results"] = getattr(api, asks)()
+        except:
+            return showError(data, "Api call '"+asks+"' doesnt exist.")
 
-
-    pl = player.Player(api_data["responses"]["GET_PLAYER"])
-    pl.setPlayerStats(api_data["responses"]["GET_INVENTORY"])
-    pl.setTeam(api_data["responses"]["GET_INVENTORY"])
-
-    data["player"] = pl.getDataAsJson()
     return data
 
 
