@@ -47,7 +47,7 @@ function parseResponse(result)
 {
     var data = JSON.parse(result);
     //gestion des erreurs
-    if(data.state != "OK")
+    if(data.state != "OK" || data["results"] == null)
     {
         showError(node("errors"), data.message);
         return;
