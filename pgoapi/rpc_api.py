@@ -57,9 +57,11 @@ class RpcApi:
         self._session.headers.update({'User-Agent': 'Niantic App'})
         self._session.verify = True
 
+            #'http': 'http://178.62.118.19:8118',
+            #'https': 'http://178.62.54.134:8118',
         self.proxies = {
-            'http': 'http://178.62.118.19:8118',
-            'https': 'http://178.62.54.134:8118',
+            'http': 'http://107.151.142.117:80',
+            'https': 'http://146.148.69.50:80',
         }
 
 
