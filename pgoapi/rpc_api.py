@@ -59,7 +59,7 @@ class RpcApi:
 
         self.proxies = {
             'http': 'http://178.62.118.19:8118',
-            'https': 'http://146.148.69.50:80',
+            'https': 'http://178.62.54.134:8118',
         }
 
 
