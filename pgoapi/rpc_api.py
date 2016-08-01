@@ -31,6 +31,7 @@ import random
 import logging
 import requests
 import subprocess
+import json
 
 from google.protobuf import message
 
@@ -59,10 +60,17 @@ class RpcApi:
 
             #'http': 'http://178.62.118.19:8118',
             #'https': 'http://178.62.54.134:8118',
+
+        #default proxies
         self.proxies = {
             'http': 'http://107.151.142.117:80',
             'https': 'http://146.148.69.50:80',
         }
+
+        with open('proxy.json') as data_file:    
+            self.proxies = json.load(data_file)
+
+        print "Proxies: " + self.proxies["http"] +" , " + self.proxies["https"]
 
 
         self._auth_provider = auth_provider
@@ -97,7 +105,10 @@ class RpcApi:
 
         request_proto_serialized = request_proto_plain.SerializeToString()
         try:
-            http_response = self._session.post(endpoint, data=request_proto_serialized, proxies=self.proxies)
+            if self.proxies["enable"] == True:
+                http_response = self._session.post(endpoint, data=request_proto_serialized, proxies=self.proxies)
+            else:
+                http_response = self._session.post(endpoint, data=request_proto_serialized)                
         except requests.exceptions.ConnectionError as e:
             raise ServerBusyOrOfflineException
 
