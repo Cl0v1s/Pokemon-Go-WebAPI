@@ -13,7 +13,7 @@ from pgoapi import utilities as util
 #=============VARIABLES=============================================
 
 # Definition des variables globales
-Debug = True
+Debug = False
 
 #=============METHODES=============================================
 
@@ -66,6 +66,13 @@ def api():
     if userparam == None or passwordparam == None:
         return showError(data, "You must specify a username and a password")
 
+    #recuperation des parametres de position 
+    positionparam = None
+    if request.query.get("position") != None:
+        positionparam = request.query.get("position")
+        positionparam = positionparam.split(",")
+        positionparam = (float(positionparam[0]), float(positionparam[1]), float(positionparam[2]))
+
 
     #Systeme d'authentification
     auth_method = 'ptc'
@@ -84,7 +91,11 @@ def api():
     api = pgoapi.PGoApi()
 
     #Parametrage de la position 
-    position = util.get_pos_by_name("New York")
+    position = None
+    if positionparam == None:
+        position = util.get_pos_by_name("New York")
+    else:
+        position = positionparam
     api.set_position(*position)
 
     #Login
