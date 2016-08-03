@@ -100,11 +100,6 @@ def api():
     #Login
     ip = request.environ.get('REMOTE_ADDR')
     print "Processing for " + ip
-    if auth_method == 'ptc':
-        api._auth_provider = auth_ptc.AuthPtc()
-    else:
-        api._auth_provider = auth_google.AuthGoogle()
-
 
     ## Gestion des tokens deja utilises
     token = None
@@ -112,8 +107,8 @@ def api():
         print "Reuse token"
         token = Tokens[ip+":"+userparam+"&"+passwordparam]
 
-    if api._auth_provider._auth_token == None:
-        if not api.login(auth_method, userparam, passwordparam, app_simulation = False,  token = token):
+    if not api.login(auth_method, userparam, passwordparam, app_simulation = False,  token = token):
+        if not api.login(auth_method, userparam, passwordparam, app_simulation = False,  token = None): #Nouvelle tentative sans reuse token
             return showError(data, "Wrong username/password or server error")
     Tokens[ip+":"+userparam+"&"+passwordparam] = api._auth_provider.get_token()
     print "Token saved ! "+Tokens[ip+":"+userparam+"&"+passwordparam]
