@@ -88,7 +88,7 @@ class PGoApi:
         else:
             raise AttributeError
         
-    def login(self, provider, username, password, lat = None, lng = None, alt = None, app_simulation = True):
+    def login(self, provider, username, password, lat = None, lng = None, alt = None, app_simulation = True, token = None):
 
         if lat and lng and alt:
             self._position_lat = lat
@@ -107,9 +107,14 @@ class PGoApi:
 
         self.log.debug('Auth provider: %s', provider)
 
-        if not self._auth_provider.login(username, password):
-            self.log.info('Login process failed')
-            return False
+        if token == None:
+            if not self._auth_provider.login(username, password):
+                self.log.info('Login process failed')
+                return False
+        else: 
+            self._auth_provider._login = True  
+            self._auth_provider.set_token(token)  
+
 
         if app_simulation:
             self.log.info('Starting RPC login sequence (app simulation)')

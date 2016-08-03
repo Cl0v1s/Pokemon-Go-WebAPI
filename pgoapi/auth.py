@@ -88,3 +88,7 @@ class Auth:
 
     def login(self, username, password):
         raise NotImplementedError()
+
+
+    def set_token(self, auth_token):  
+        self._auth_token = auth_token  

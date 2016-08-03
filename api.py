@@ -1,6 +1,5 @@
 from bottle import *
 import os
-import re
 import logging
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5
@@ -9,11 +8,14 @@ from subprocess import Popen, PIPE
 
 from pgoapi import pgoapi
 from pgoapi import utilities as util
+from pgoapi import auth_google
+from pgoapi import auth_ptc
 
 #=============VARIABLES=============================================
 
 # Definition des variables globales
 Debug = False
+Tokens = {}
 
 #=============METHODES=============================================
 
@@ -68,10 +70,11 @@ def api():
 
     #recuperation des parametres de position 
     positionparam = None
-    if request.query.get("position") != None:
-        positionparam = request.query.get("position")
-        positionparam = positionparam.split(",")
-        positionparam = (float(positionparam[0]), float(positionparam[1]), float(positionparam[2]))
+    if request.query.get("position") == None:
+        return showError(data, "You must send a position.")
+    positionparam = request.query.get("position")
+    positionparam = positionparam.split(",")
+    positionparam = (float(positionparam[0]), float(positionparam[1]), float(positionparam[2]))
 
 
     #Systeme d'authentification
@@ -91,16 +94,29 @@ def api():
     api = pgoapi.PGoApi()
 
     #Parametrage de la position 
-    position = None
-    if positionparam == None:
-        position = util.get_pos_by_name("New York")
-    else:
-        position = positionparam
+    position = positionparam
     api.set_position(*position)
 
     #Login
-    if not api.login(auth_method, userparam, passwordparam, app_simulation = True):
-        return showError(data, "Wrong username/password or server error")
+    ip = request.environ.get('REMOTE_ADDR')
+    print "Processing for " + ip
+    if auth_method == 'ptc':
+        api._auth_provider = auth_ptc.AuthPtc()
+    else:
+        api._auth_provider = auth_google.AuthGoogle()
+
+
+    ## Gestion des tokens deja utilises
+    token = None
+    if ip+":"+userparam+"&"+passwordparam in Tokens:
+        print "Reuse token"
+        token = Tokens[ip+":"+userparam+"&"+passwordparam]
+
+    if api._auth_provider._auth_token == None:
+        if not api.login(auth_method, userparam, passwordparam, app_simulation = False,  token = token):
+            return showError(data, "Wrong username/password or server error")
+    Tokens[ip+":"+userparam+"&"+passwordparam] = api._auth_provider.get_token()
+    print "Token saved ! "+Tokens[ip+":"+userparam+"&"+passwordparam]
 
     #Lancement des requetes
     asks = request.query.get("requests")
